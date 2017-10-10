@@ -1,0 +1,790 @@
+[
+    {
+        "id": "ff5f17e8.cbcbf8",
+        "type": "tab",
+        "label": "Demo",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "80962245.14abd8",
+        "type": "tab",
+        "label": "Input",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4415cad9.7765e4",
+        "type": "tab",
+        "label": "Output",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "cbdf4d14.16c78",
+        "type": "http in",
+        "z": "80962245.14abd8",
+        "name": "",
+        "url": "/lops",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 140,
+        "wires": [
+            [
+                "2bc0e33.351921c"
+            ]
+        ]
+    },
+    {
+        "id": "cf41a3d8.22ea38",
+        "type": "template",
+        "z": "80962245.14abd8",
+        "name": "Webantwort",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "scan: {{req.query.scan}}\nfunc: {{payload}}",
+        "output": "str",
+        "x": 630,
+        "y": 220,
+        "wires": [
+            [
+                "fc0ac746.4aa8a8"
+            ]
+        ]
+    },
+    {
+        "id": "fc0ac746.4aa8a8",
+        "type": "http response",
+        "z": "80962245.14abd8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 790,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "fcbe679f.e1e298",
+        "type": "template",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head></head>\n    <body>\n        <h1>Hello {{req.query.name}}!</h1>\n    </body>\n</html>",
+        "x": 330,
+        "y": 80,
+        "wires": [
+            [
+                "d52f9964.5677b8"
+            ]
+        ]
+    },
+    {
+        "id": "e381df42.3b1c38",
+        "type": "http in",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "url": "/hello-query",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "fcbe679f.e1e298"
+            ]
+        ]
+    },
+    {
+        "id": "d52f9964.5677b8",
+        "type": "http response",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "x": 470,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "2bc0e33.351921c",
+        "type": "switch",
+        "z": "80962245.14abd8",
+        "name": "Fkt. wählen",
+        "property": "req.query.scan",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "[\\d]+\\-[\\d]+",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "eq",
+                "v": "4321",
+                "vt": "num"
+            },
+            {
+                "t": "regex",
+                "v": ".*",
+                "vt": "str",
+                "case": false
+            }
+        ],
+        "checkall": "false",
+        "outputs": 3,
+        "x": 230,
+        "y": 140,
+        "wires": [
+            [
+                "7c99ed33.0c6074"
+            ],
+            [
+                "b368c67c.0d741"
+            ],
+            [
+                "f4e9ad97.925d48"
+            ]
+        ]
+    },
+    {
+        "id": "a0f14c94.718a78",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "topic": "Hello",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "14b1086.a968678"
+            ]
+        ]
+    },
+    {
+        "id": "14b1086.a968678",
+        "type": "change",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "1636444a.ebfa74"
+            ]
+        ]
+    },
+    {
+        "id": "1636444a.ebfa74",
+        "type": "debug",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 570,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "7c99ed33.0c6074",
+        "type": "change",
+        "z": "80962245.14abd8",
+        "name": "Artikel merken",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Artikel merken",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 40,
+        "wires": [
+            [
+                "cf41a3d8.22ea38",
+                "c336bd39.63204"
+            ]
+        ]
+    },
+    {
+        "id": "b368c67c.0d741",
+        "type": "change",
+        "z": "80962245.14abd8",
+        "name": "E-Mail senden",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "E-Mail senden",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "cf41a3d8.22ea38",
+                "45cd3bdb.22dff4"
+            ]
+        ]
+    },
+    {
+        "id": "79e8e298.86e09c",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "fc324878.0364a8"
+            ]
+        ]
+    },
+    {
+        "id": "fc324878.0364a8",
+        "type": "change",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Hello World!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "2c7e58e6.833d28"
+            ]
+        ]
+    },
+    {
+        "id": "2c7e58e6.833d28",
+        "type": "debug",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 570,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "f4e9ad97.925d48",
+        "type": "change",
+        "z": "80962245.14abd8",
+        "name": "keine Aktion",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "keine Aktion",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 220,
+        "wires": [
+            [
+                "cf41a3d8.22ea38"
+            ]
+        ]
+    },
+    {
+        "id": "35066907.7ed8e6",
+        "type": "comment",
+        "z": "80962245.14abd8",
+        "name": "Aufruf durch Scanner",
+        "info": "Scanner-Skript lauscht auf Tastatureingabe \nund ruft über curl den LOPS auf.",
+        "x": 120,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1d74d5e6.d0df52",
+        "type": "file",
+        "z": "80962245.14abd8",
+        "name": "",
+        "filename": "/tmp/lops_input.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 910,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "3c4f59f.7a26926",
+        "type": "http in",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "c257f6a3.971ab"
+            ]
+        ]
+    },
+    {
+        "id": "c257f6a3.971ab",
+        "type": "function",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "func": "msg.payload = {\"test\" : \"this is a test\"};\nmsg.statusCode = 200;\nreturn msg;",
+        "outputs": 1,
+        "x": 330,
+        "y": 140,
+        "wires": [
+            [
+                "6eda3258.e94f94"
+            ]
+        ]
+    },
+    {
+        "id": "6eda3258.e94f94",
+        "type": "http response",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "x": 470,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "dfe6c5b8.f2ae6",
+        "type": "e-mail",
+        "z": "80962245.14abd8",
+        "server": "172.16.1.112",
+        "port": "25",
+        "secure": true,
+        "name": "",
+        "dname": "Postausgang",
+        "x": 1190,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e4aa1aaf.f70f6",
+        "type": "file in",
+        "z": "80962245.14abd8",
+        "name": "",
+        "filename": "/tmp/lops_email.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 810,
+        "y": 140,
+        "wires": [
+            [
+                "d951a09b.8cb698"
+            ]
+        ]
+    },
+    {
+        "id": "c336bd39.63204",
+        "type": "change",
+        "z": "80962245.14abd8",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "req.query.scan",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 40,
+        "wires": [
+            [
+                "1d74d5e6.d0df52"
+            ]
+        ]
+    },
+    {
+        "id": "7541402e.6b5ce",
+        "type": "catch",
+        "z": "80962245.14abd8",
+        "name": "",
+        "scope": [
+            "dfe6c5b8.f2ae6"
+        ],
+        "x": 80,
+        "y": 400,
+        "wires": [
+            [
+                "a1e64a92.e342"
+            ]
+        ]
+    },
+    {
+        "id": "a1e64a92.e342",
+        "type": "change",
+        "z": "80962245.14abd8",
+        "name": "Error Message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "error.message",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 400,
+        "wires": [
+            [
+                "71b868b9.9fab58"
+            ]
+        ]
+    },
+    {
+        "id": "71b868b9.9fab58",
+        "type": "debug",
+        "z": "80962245.14abd8",
+        "name": "",
+        "active": true,
+        "console": "true",
+        "complete": "error.message",
+        "x": 520,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "fa48e230.04907",
+        "type": "http request",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "https://www.packtpub.com/packt/offers/free-learning",
+        "x": 370,
+        "y": 420,
+        "wires": [
+            [
+                "e5cf0609.6b7da"
+            ]
+        ]
+    },
+    {
+        "id": "a64dd060.93a5e",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "10:30am trigger",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "30 07 * * *",
+        "once": false,
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "fa48e230.04907"
+            ]
+        ]
+    },
+    {
+        "id": "e5cf0609.6b7da",
+        "type": "html",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "extract book title",
+        "tag": ".dotd-title h2",
+        "ret": "text",
+        "as": "single",
+        "x": 540,
+        "y": 420,
+        "wires": [
+            [
+                "b1104f35.0b3cd8"
+            ]
+        ]
+    },
+    {
+        "id": "92069c7c.5c4ff8",
+        "type": "template",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "template",
+        "field": "payload",
+        "fieldType": "msg",
+        "syntax": "mustache",
+        "template": "{{#payload}}\n{{.}}\n{{/payload}}\n\nhttps://www.packtpub.com/packt/offers/free-learning",
+        "x": 900,
+        "y": 420,
+        "wires": [
+            [
+                "843e443e.ab3c2"
+            ]
+        ]
+    },
+    {
+        "id": "843e443e.ab3c2",
+        "type": "e-mail",
+        "z": "ff5f17e8.cbcbf8",
+        "server": "smtp.mailgun.org",
+        "port": "587",
+        "name": "your@email.com",
+        "dname": "email",
+        "x": 1030,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "b1104f35.0b3cd8",
+        "type": "function",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "trim & set subject",
+        "func": "msg.payload = msg.payload.map(function(item) {\n  return item.trim();\n});\nmsg.topic = 'Free eBook from Packt Publishing';\nreturn msg;",
+        "outputs": 1,
+        "x": 730,
+        "y": 420,
+        "wires": [
+            [
+                "92069c7c.5c4ff8"
+            ]
+        ]
+    },
+    {
+        "id": "2ce65790.46b05",
+        "type": "status",
+        "z": "80962245.14abd8",
+        "name": "",
+        "scope": [
+            "dfe6c5b8.f2ae6"
+        ],
+        "x": 80,
+        "y": 320,
+        "wires": [
+            [
+                "cc3db5aa.ce5ce"
+            ]
+        ]
+    },
+    {
+        "id": "d951a09b.8cb698",
+        "type": "change",
+        "z": "80962245.14abd8",
+        "name": "Empfänger",
+        "rules": [
+            {
+                "t": "set",
+                "p": "to",
+                "pt": "msg",
+                "to": "maik.boettcher@bur-handel.de",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "cc",
+                "pt": "msg",
+                "to": "besteller@demo.de",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 140,
+        "wires": [
+            [
+                "dfe6c5b8.f2ae6"
+            ]
+        ]
+    },
+    {
+        "id": "cc3db5aa.ce5ce",
+        "type": "fs-ops-delete",
+        "z": "80962245.14abd8",
+        "name": "",
+        "path": "/tmp",
+        "pathType": "str",
+        "filename": "lops_email.txt",
+        "filenameType": "str",
+        "x": 250,
+        "y": 320,
+        "wires": [
+            [
+                "620f8c7e.2bd24c"
+            ]
+        ]
+    },
+    {
+        "id": "45cd3bdb.22dff4",
+        "type": "fs-ops-move",
+        "z": "80962245.14abd8",
+        "name": "",
+        "sourcePath": "/tmp",
+        "sourcePathType": "str",
+        "sourceFilename": "lops_input.txt",
+        "sourceFilenameType": "str",
+        "destPath": "/tmp",
+        "destPathType": "str",
+        "destFilename": "lops_email.txt",
+        "destFilenameType": "str",
+        "link": false,
+        "x": 620,
+        "y": 140,
+        "wires": [
+            [
+                "e4aa1aaf.f70f6"
+            ]
+        ]
+    },
+    {
+        "id": "6ccf43eb.5fe13c",
+        "type": "debug",
+        "z": "80962245.14abd8",
+        "name": "",
+        "active": true,
+        "console": "true",
+        "complete": "payload",
+        "x": 640,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "620f8c7e.2bd24c",
+        "type": "template",
+        "z": "80962245.14abd8",
+        "name": "Erfolgsmeldung",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the payload: {{payload}} !",
+        "output": "str",
+        "x": 440,
+        "y": 320,
+        "wires": [
+            [
+                "6ccf43eb.5fe13c"
+            ]
+        ]
+    },
+    {
+        "id": "548b1ceb.c7f7cc",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 160,
+        "y": 520,
+        "wires": [
+            [
+                "7cfe98d2.36654"
+            ]
+        ]
+    },
+    {
+        "id": "6c7d676e.974828",
+        "type": "debug",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "lops_key",
+        "x": 520,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "7cfe98d2.36654",
+        "type": "function",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "func": "// eine Zahl mit führenden Nullen liefern\n//    x = eine Zahl\n//    l = Länge mit Nullen\nvar f = function(x, l) {\n    var str = \"0000\" + x;\n    var idx = str.length - l;\n    return str.substr(idx, l);\n};\n\nvar d = new Date();\nvar k = f(d.getFullYear(), 2) + \"\" + f((d.getMonth()+1), 2) + \"\" + f(d.getDate(), 2);\nk += \"_\" + f(d.getHours(), 2) + \"\" + f(d.getMinutes(), 2) + \"\" + f(d.getSeconds(), 2);\nk += \"_\" + f(d.getMilliseconds(), 3);\n\nmsg.lops_key = k;\n\nnode.status({fill:\"blue\",shape:\"dot\",text:msg.lops_key});\n\nreturn msg;",
+        "outputs": "1",
+        "noerr": 0,
+        "x": 330,
+        "y": 520,
+        "wires": [
+            [
+                "6c7d676e.974828"
+            ]
+        ]
+    }
+]
