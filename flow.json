@@ -30,10 +30,10 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 80,
-        "y": 140,
+        "y": 240,
         "wires": [
             [
-                "2bc0e33.351921c"
+                "14add112.53448f"
             ]
         ]
     },
@@ -46,10 +46,10 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "scan: {{req.query.scan}}\nfunc: {{payload}}",
+        "template": "scan: {{req.query.scan}}\\n\nfunc: {{payload}}\\n",
         "output": "str",
-        "x": 630,
-        "y": 220,
+        "x": 530,
+        "y": 540,
         "wires": [
             [
                 "fc0ac746.4aa8a8"
@@ -63,8 +63,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 790,
-        "y": 220,
+        "x": 690,
+        "y": 540,
         "wires": []
     },
     {
@@ -138,8 +138,8 @@
         ],
         "checkall": "false",
         "outputs": 3,
-        "x": 230,
-        "y": 140,
+        "x": 130,
+        "y": 460,
         "wires": [
             [
                 "7c99ed33.0c6074"
@@ -229,8 +229,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 440,
-        "y": 40,
+        "x": 340,
+        "y": 360,
         "wires": [
             [
                 "cf41a3d8.22ea38",
@@ -257,8 +257,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 440,
-        "y": 140,
+        "x": 340,
+        "y": 460,
         "wires": [
             [
                 "cf41a3d8.22ea38",
@@ -343,8 +343,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 430,
-        "y": 220,
+        "x": 330,
+        "y": 540,
         "wires": [
             [
                 "cf41a3d8.22ea38"
@@ -358,7 +358,7 @@
         "name": "Aufruf durch Scanner",
         "info": "Scanner-Skript lauscht auf Tastatureingabe \nund ruft über curl den LOPS auf.",
         "x": 120,
-        "y": 80,
+        "y": 200,
         "wires": []
     },
     {
@@ -370,8 +370,8 @@
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
-        "x": 910,
-        "y": 40,
+        "x": 810,
+        "y": 360,
         "wires": []
     },
     {
@@ -417,26 +417,26 @@
         "id": "dfe6c5b8.f2ae6",
         "type": "e-mail",
         "z": "80962245.14abd8",
-        "server": "172.16.1.112",
+        "server": "192.168.51.104",
         "port": "25",
-        "secure": true,
+        "secure": false,
         "name": "",
         "dname": "Postausgang",
-        "x": 1190,
-        "y": 140,
+        "x": 1050,
+        "y": 460,
         "wires": []
     },
     {
         "id": "e4aa1aaf.f70f6",
         "type": "file in",
         "z": "80962245.14abd8",
-        "name": "",
-        "filename": "/tmp/lops_email.txt",
+        "name": "Datei lesen",
+        "filename": "",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 810,
-        "y": 140,
+        "x": 690,
+        "y": 460,
         "wires": [
             [
                 "d951a09b.8cb698"
@@ -462,8 +462,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 670,
-        "y": 40,
+        "x": 570,
+        "y": 360,
         "wires": [
             [
                 "1d74d5e6.d0df52"
@@ -479,7 +479,7 @@
             "dfe6c5b8.f2ae6"
         ],
         "x": 80,
-        "y": 400,
+        "y": 740,
         "wires": [
             [
                 "a1e64a92.e342"
@@ -505,8 +505,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 260,
-        "y": 400,
+        "x": 280,
+        "y": 740,
         "wires": [
             [
                 "71b868b9.9fab58"
@@ -522,7 +522,7 @@
         "console": "true",
         "complete": "error.message",
         "x": 520,
-        "y": 400,
+        "y": 740,
         "wires": []
     },
     {
@@ -629,7 +629,7 @@
             "dfe6c5b8.f2ae6"
         ],
         "x": 80,
-        "y": 320,
+        "y": 660,
         "wires": [
             [
                 "cc3db5aa.ce5ce"
@@ -655,6 +655,13 @@
                 "pt": "msg",
                 "to": "besteller@demo.de",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "lops_email_file",
+                "pt": "flow",
+                "to": "lops_email_file",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -662,8 +669,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1010,
-        "y": 140,
+        "x": 870,
+        "y": 460,
         "wires": [
             [
                 "dfe6c5b8.f2ae6"
@@ -677,10 +684,10 @@
         "name": "",
         "path": "/tmp",
         "pathType": "str",
-        "filename": "lops_email.txt",
-        "filenameType": "str",
+        "filename": "lops_email_file",
+        "filenameType": "flow",
         "x": 250,
-        "y": 320,
+        "y": 660,
         "wires": [
             [
                 "620f8c7e.2bd24c"
@@ -698,11 +705,11 @@
         "sourceFilenameType": "str",
         "destPath": "/tmp",
         "destPathType": "str",
-        "destFilename": "lops_email.txt",
-        "destFilenameType": "str",
+        "destFilename": "lops_email_file",
+        "destFilenameType": "msg",
         "link": false,
-        "x": 620,
-        "y": 140,
+        "x": 520,
+        "y": 460,
         "wires": [
             [
                 "e4aa1aaf.f70f6"
@@ -718,7 +725,7 @@
         "console": "true",
         "complete": "payload",
         "x": 640,
-        "y": 320,
+        "y": 660,
         "wires": []
     },
     {
@@ -730,10 +737,10 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "This is the payload: {{payload}} !",
+        "template": "deleted: {{flow.lops_email_file}}",
         "output": "str",
         "x": 440,
-        "y": 320,
+        "y": 660,
         "wires": [
             [
                 "6ccf43eb.5fe13c"
@@ -786,5 +793,182 @@
                 "6c7d676e.974828"
             ]
         ]
+    },
+    {
+        "id": "1a88a322.7a6e3d",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 160,
+        "y": 580,
+        "wires": [
+            [
+                "204c17cf.31fae"
+            ]
+        ]
+    },
+    {
+        "id": "204c17cf.31fae",
+        "type": "change",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Hallo SMTP im Docker!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 580,
+        "wires": [
+            [
+                "f78545d4.5f54c8"
+            ]
+        ]
+    },
+    {
+        "id": "f78545d4.5f54c8",
+        "type": "e-mail",
+        "z": "ff5f17e8.cbcbf8",
+        "server": "192.168.51.104",
+        "port": "25",
+        "secure": false,
+        "name": "maik@btmx.net",
+        "dname": "",
+        "x": 560,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "14add112.53448f",
+        "type": "function",
+        "z": "80962245.14abd8",
+        "name": "LOPS-Key erzeugen",
+        "func": "// eine Zahl mit führenden Nullen liefern\n//    x = eine Zahl\n//    l = Länge mit Nullen\nvar f = function(x, l) {\n    var str = \"0000\" + x;\n    var idx = str.length - l;\n    return str.substr(idx, l);\n};\n\nvar d = new Date();\nvar k = f(d.getFullYear(), 2) + \"\" + f((d.getMonth()+1), 2) + \"\" + f(d.getDate(), 2);\nk += \"_\" + f(d.getHours(), 2) + \"\" + f(d.getMinutes(), 2) + \"\" + f(d.getSeconds(), 2);\nk += \"_\" + f(d.getMilliseconds(), 3);\n\nmsg.lops_key = k;\nmsg.lops_email_file = \"lops_email_\" + k + \".txt\";\nmsg.filename = \"/tmp/lops_email_\" + k + \".txt\";\n\nnode.status({fill:\"gray\",shape:\"dot\",text:msg.lops_key});\n\nreturn msg;",
+        "outputs": "1",
+        "noerr": 0,
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "2bc0e33.351921c"
+            ]
+        ]
+    },
+    {
+        "id": "7ecab3be.9d902c",
+        "type": "change",
+        "z": "80962245.14abd8",
+        "name": "eine Artikelnummer",
+        "rules": [
+            {
+                "t": "set",
+                "p": "req.query.scan",
+                "pt": "msg",
+                "to": "1234-5",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 80,
+        "wires": [
+            [
+                "14add112.53448f"
+            ]
+        ]
+    },
+    {
+        "id": "fa66c1c2.6aaae",
+        "type": "inject",
+        "z": "80962245.14abd8",
+        "name": "Artikel aufrufen",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "7ecab3be.9d902c"
+            ]
+        ]
+    },
+    {
+        "id": "e5441884.b1db8",
+        "type": "inject",
+        "z": "80962245.14abd8",
+        "name": "E-Mail senden",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "5cc4e124.ff8a88"
+            ]
+        ]
+    },
+    {
+        "id": "5cc4e124.ff8a88",
+        "type": "change",
+        "z": "80962245.14abd8",
+        "name": "ein Funktionscode",
+        "rules": [
+            {
+                "t": "set",
+                "p": "req.query.scan",
+                "pt": "msg",
+                "to": "4321",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 120,
+        "wires": [
+            [
+                "14add112.53448f"
+            ]
+        ]
+    },
+    {
+        "id": "9f7c7bc9.c49c4",
+        "type": "comment",
+        "z": "80962245.14abd8",
+        "name": "Aufruf zum Testen",
+        "info": "",
+        "x": 110,
+        "y": 40,
+        "wires": []
     }
 ]
