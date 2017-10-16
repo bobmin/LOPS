@@ -205,7 +205,7 @@
         "id": "dfe6c5b8.f2ae6",
         "type": "e-mail",
         "z": "80962245.14abd8",
-        "server": "172.16.8.109",
+        "server": "nb-mboettcher02",
         "port": "25",
         "secure": false,
         "name": "",
