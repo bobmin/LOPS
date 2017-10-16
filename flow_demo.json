@@ -1,0 +1,415 @@
+[
+    {
+        "id": "ff5f17e8.cbcbf8",
+        "type": "tab",
+        "label": "Demo",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "fcbe679f.e1e298",
+        "type": "template",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head></head>\n    <body>\n        <h1>Hello {{req.query.name}}!</h1>\n    </body>\n</html>",
+        "x": 330,
+        "y": 80,
+        "wires": [
+            [
+                "d52f9964.5677b8"
+            ]
+        ]
+    },
+    {
+        "id": "e381df42.3b1c38",
+        "type": "http in",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "url": "/hello-query",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "fcbe679f.e1e298"
+            ]
+        ]
+    },
+    {
+        "id": "d52f9964.5677b8",
+        "type": "http response",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 470,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a0f14c94.718a78",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "topic": "Hello",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "14b1086.a968678"
+            ]
+        ]
+    },
+    {
+        "id": "14b1086.a968678",
+        "type": "change",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "1636444a.ebfa74"
+            ]
+        ]
+    },
+    {
+        "id": "1636444a.ebfa74",
+        "type": "debug",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 570,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "79e8e298.86e09c",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "fc324878.0364a8"
+            ]
+        ]
+    },
+    {
+        "id": "fc324878.0364a8",
+        "type": "change",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Hello World!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "2c7e58e6.833d28"
+            ]
+        ]
+    },
+    {
+        "id": "2c7e58e6.833d28",
+        "type": "debug",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 570,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3c4f59f.7a26926",
+        "type": "http in",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "c257f6a3.971ab"
+            ]
+        ]
+    },
+    {
+        "id": "c257f6a3.971ab",
+        "type": "function",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "func": "msg.payload = {\"test\" : \"this is a test\"};\nmsg.statusCode = 200;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 140,
+        "wires": [
+            [
+                "6eda3258.e94f94"
+            ]
+        ]
+    },
+    {
+        "id": "6eda3258.e94f94",
+        "type": "http response",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "x": 470,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "fa48e230.04907",
+        "type": "http request",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "https://www.packtpub.com/packt/offers/free-learning",
+        "tls": "",
+        "x": 370,
+        "y": 420,
+        "wires": [
+            [
+                "e5cf0609.6b7da"
+            ]
+        ]
+    },
+    {
+        "id": "a64dd060.93a5e",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "10:30am trigger",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "30 07 * * *",
+        "once": false,
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "fa48e230.04907"
+            ]
+        ]
+    },
+    {
+        "id": "e5cf0609.6b7da",
+        "type": "html",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "extract book title",
+        "tag": ".dotd-title h2",
+        "ret": "text",
+        "as": "single",
+        "x": 540,
+        "y": 420,
+        "wires": [
+            [
+                "b1104f35.0b3cd8"
+            ]
+        ]
+    },
+    {
+        "id": "92069c7c.5c4ff8",
+        "type": "template",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "template",
+        "field": "payload",
+        "fieldType": "msg",
+        "syntax": "mustache",
+        "template": "{{#payload}}\n{{.}}\n{{/payload}}\n\nhttps://www.packtpub.com/packt/offers/free-learning",
+        "x": 900,
+        "y": 420,
+        "wires": [
+            [
+                "843e443e.ab3c2"
+            ]
+        ]
+    },
+    {
+        "id": "843e443e.ab3c2",
+        "type": "e-mail",
+        "z": "ff5f17e8.cbcbf8",
+        "server": "smtp.mailgun.org",
+        "port": "587",
+        "secure": false,
+        "name": "your@email.com",
+        "dname": "email",
+        "x": 1030,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "b1104f35.0b3cd8",
+        "type": "function",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "trim & set subject",
+        "func": "msg.payload = msg.payload.map(function(item) {\n  return item.trim();\n});\nmsg.topic = 'Free eBook from Packt Publishing';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 730,
+        "y": 420,
+        "wires": [
+            [
+                "92069c7c.5c4ff8"
+            ]
+        ]
+    },
+    {
+        "id": "548b1ceb.c7f7cc",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 160,
+        "y": 520,
+        "wires": [
+            [
+                "7cfe98d2.36654"
+            ]
+        ]
+    },
+    {
+        "id": "6c7d676e.974828",
+        "type": "debug",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "lops_key",
+        "x": 520,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "7cfe98d2.36654",
+        "type": "function",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "func": "// eine Zahl mit führenden Nullen liefern\n//    x = eine Zahl\n//    l = Länge mit Nullen\nvar f = function(x, l) {\n    var str = \"0000\" + x;\n    var idx = str.length - l;\n    return str.substr(idx, l);\n};\n\nvar d = new Date();\nvar k = f(d.getFullYear(), 2) + \"\" + f((d.getMonth()+1), 2) + \"\" + f(d.getDate(), 2);\nk += \"_\" + f(d.getHours(), 2) + \"\" + f(d.getMinutes(), 2) + \"\" + f(d.getSeconds(), 2);\nk += \"_\" + f(d.getMilliseconds(), 3);\n\nmsg.lops_key = k;\n\nnode.status({fill:\"blue\",shape:\"dot\",text:msg.lops_key});\n\nreturn msg;",
+        "outputs": "1",
+        "noerr": 0,
+        "x": 330,
+        "y": 520,
+        "wires": [
+            [
+                "6c7d676e.974828"
+            ]
+        ]
+    },
+    {
+        "id": "1a88a322.7a6e3d",
+        "type": "inject",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 160,
+        "y": 580,
+        "wires": [
+            [
+                "204c17cf.31fae"
+            ]
+        ]
+    },
+    {
+        "id": "204c17cf.31fae",
+        "type": "change",
+        "z": "ff5f17e8.cbcbf8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Hallo SMTP im Docker!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 580,
+        "wires": [
+            [
+                "f78545d4.5f54c8"
+            ]
+        ]
+    },
+    {
+        "id": "f78545d4.5f54c8",
+        "type": "e-mail",
+        "z": "ff5f17e8.cbcbf8",
+        "server": "192.168.51.104",
+        "port": "25",
+        "secure": false,
+        "name": "maik@btmx.net",
+        "dname": "",
+        "x": 560,
+        "y": 580,
+        "wires": []
+    }
+]

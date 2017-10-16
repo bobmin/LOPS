@@ -1,22 +1,8 @@
 [
     {
-        "id": "ff5f17e8.cbcbf8",
-        "type": "tab",
-        "label": "Demo",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "80962245.14abd8",
         "type": "tab",
-        "label": "Input",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "4415cad9.7765e4",
-        "type": "tab",
-        "label": "Output",
+        "label": "LOPS 2.0",
         "disabled": false,
         "info": ""
     },
@@ -48,8 +34,8 @@
         "syntax": "mustache",
         "template": "scan: {{req.query.scan}}\\n\nfunc: {{payload}}\\n",
         "output": "str",
-        "x": 530,
-        "y": 540,
+        "x": 650,
+        "y": 500,
         "wires": [
             [
                 "fc0ac746.4aa8a8"
@@ -63,51 +49,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 690,
-        "y": 540,
-        "wires": []
-    },
-    {
-        "id": "fcbe679f.e1e298",
-        "type": "template",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "page",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<html>\n    <head></head>\n    <body>\n        <h1>Hello {{req.query.name}}!</h1>\n    </body>\n</html>",
-        "x": 330,
-        "y": 80,
-        "wires": [
-            [
-                "d52f9964.5677b8"
-            ]
-        ]
-    },
-    {
-        "id": "e381df42.3b1c38",
-        "type": "http in",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "url": "/hello-query",
-        "method": "get",
-        "swaggerDoc": "",
-        "x": 160,
-        "y": 80,
-        "wires": [
-            [
-                "fcbe679f.e1e298"
-            ]
-        ]
-    },
-    {
-        "id": "d52f9964.5677b8",
-        "type": "http response",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "x": 470,
-        "y": 80,
+        "x": 810,
+        "y": 500,
         "wires": []
     },
     {
@@ -138,8 +81,8 @@
         ],
         "checkall": "false",
         "outputs": 3,
-        "x": 130,
-        "y": 460,
+        "x": 250,
+        "y": 420,
         "wires": [
             [
                 "7c99ed33.0c6074"
@@ -151,64 +94,6 @@
                 "f4e9ad97.925d48"
             ]
         ]
-    },
-    {
-        "id": "a0f14c94.718a78",
-        "type": "inject",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "topic": "Hello",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 180,
-        "y": 240,
-        "wires": [
-            [
-                "14b1086.a968678"
-            ]
-        ]
-    },
-    {
-        "id": "14b1086.a968678",
-        "type": "change",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "topic",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 380,
-        "y": 240,
-        "wires": [
-            [
-                "1636444a.ebfa74"
-            ]
-        ]
-    },
-    {
-        "id": "1636444a.ebfa74",
-        "type": "debug",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 570,
-        "y": 240,
-        "wires": []
     },
     {
         "id": "7c99ed33.0c6074",
@@ -229,8 +114,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 340,
-        "y": 360,
+        "x": 460,
+        "y": 320,
         "wires": [
             [
                 "cf41a3d8.22ea38",
@@ -257,72 +142,14 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 340,
-        "y": 460,
+        "x": 460,
+        "y": 420,
         "wires": [
             [
                 "cf41a3d8.22ea38",
                 "45cd3bdb.22dff4"
             ]
         ]
-    },
-    {
-        "id": "79e8e298.86e09c",
-        "type": "inject",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 160,
-        "y": 300,
-        "wires": [
-            [
-                "fc324878.0364a8"
-            ]
-        ]
-    },
-    {
-        "id": "fc324878.0364a8",
-        "type": "change",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "Hello World!",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 360,
-        "y": 300,
-        "wires": [
-            [
-                "2c7e58e6.833d28"
-            ]
-        ]
-    },
-    {
-        "id": "2c7e58e6.833d28",
-        "type": "debug",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 570,
-        "y": 300,
-        "wires": []
     },
     {
         "id": "f4e9ad97.925d48",
@@ -343,8 +170,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 330,
-        "y": 540,
+        "x": 450,
+        "y": 500,
         "wires": [
             [
                 "cf41a3d8.22ea38"
@@ -370,60 +197,21 @@
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
-        "x": 810,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "3c4f59f.7a26926",
-        "type": "http in",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "url": "/test",
-        "method": "get",
-        "x": 140,
-        "y": 140,
-        "wires": [
-            [
-                "c257f6a3.971ab"
-            ]
-        ]
-    },
-    {
-        "id": "c257f6a3.971ab",
-        "type": "function",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "func": "msg.payload = {\"test\" : \"this is a test\"};\nmsg.statusCode = 200;\nreturn msg;",
-        "outputs": 1,
-        "x": 330,
-        "y": 140,
-        "wires": [
-            [
-                "6eda3258.e94f94"
-            ]
-        ]
-    },
-    {
-        "id": "6eda3258.e94f94",
-        "type": "http response",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "x": 470,
-        "y": 140,
+        "x": 930,
+        "y": 320,
         "wires": []
     },
     {
         "id": "dfe6c5b8.f2ae6",
         "type": "e-mail",
         "z": "80962245.14abd8",
-        "server": "192.168.51.104",
+        "server": "172.16.8.109",
         "port": "25",
         "secure": false,
         "name": "",
         "dname": "Postausgang",
-        "x": 1050,
-        "y": 460,
+        "x": 1170,
+        "y": 420,
         "wires": []
     },
     {
@@ -435,8 +223,8 @@
         "format": "utf8",
         "chunk": false,
         "sendError": false,
-        "x": 690,
-        "y": 460,
+        "x": 810,
+        "y": 420,
         "wires": [
             [
                 "d951a09b.8cb698"
@@ -462,8 +250,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 570,
-        "y": 360,
+        "x": 690,
+        "y": 320,
         "wires": [
             [
                 "1d74d5e6.d0df52"
@@ -479,7 +267,7 @@
             "dfe6c5b8.f2ae6"
         ],
         "x": 80,
-        "y": 740,
+        "y": 700,
         "wires": [
             [
                 "a1e64a92.e342"
@@ -506,7 +294,7 @@
         "to": "",
         "reg": false,
         "x": 280,
-        "y": 740,
+        "y": 700,
         "wires": [
             [
                 "71b868b9.9fab58"
@@ -522,103 +310,8 @@
         "console": "true",
         "complete": "error.message",
         "x": 520,
-        "y": 740,
+        "y": 700,
         "wires": []
-    },
-    {
-        "id": "fa48e230.04907",
-        "type": "http request",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "url": "https://www.packtpub.com/packt/offers/free-learning",
-        "x": 370,
-        "y": 420,
-        "wires": [
-            [
-                "e5cf0609.6b7da"
-            ]
-        ]
-    },
-    {
-        "id": "a64dd060.93a5e",
-        "type": "inject",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "10:30am trigger",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "30 07 * * *",
-        "once": false,
-        "x": 190,
-        "y": 420,
-        "wires": [
-            [
-                "fa48e230.04907"
-            ]
-        ]
-    },
-    {
-        "id": "e5cf0609.6b7da",
-        "type": "html",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "extract book title",
-        "tag": ".dotd-title h2",
-        "ret": "text",
-        "as": "single",
-        "x": 540,
-        "y": 420,
-        "wires": [
-            [
-                "b1104f35.0b3cd8"
-            ]
-        ]
-    },
-    {
-        "id": "92069c7c.5c4ff8",
-        "type": "template",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "template",
-        "field": "payload",
-        "fieldType": "msg",
-        "syntax": "mustache",
-        "template": "{{#payload}}\n{{.}}\n{{/payload}}\n\nhttps://www.packtpub.com/packt/offers/free-learning",
-        "x": 900,
-        "y": 420,
-        "wires": [
-            [
-                "843e443e.ab3c2"
-            ]
-        ]
-    },
-    {
-        "id": "843e443e.ab3c2",
-        "type": "e-mail",
-        "z": "ff5f17e8.cbcbf8",
-        "server": "smtp.mailgun.org",
-        "port": "587",
-        "name": "your@email.com",
-        "dname": "email",
-        "x": 1030,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "b1104f35.0b3cd8",
-        "type": "function",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "trim & set subject",
-        "func": "msg.payload = msg.payload.map(function(item) {\n  return item.trim();\n});\nmsg.topic = 'Free eBook from Packt Publishing';\nreturn msg;",
-        "outputs": 1,
-        "x": 730,
-        "y": 420,
-        "wires": [
-            [
-                "92069c7c.5c4ff8"
-            ]
-        ]
     },
     {
         "id": "2ce65790.46b05",
@@ -629,7 +322,7 @@
             "dfe6c5b8.f2ae6"
         ],
         "x": 80,
-        "y": 660,
+        "y": 620,
         "wires": [
             [
                 "cc3db5aa.ce5ce"
@@ -669,8 +362,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 870,
-        "y": 460,
+        "x": 990,
+        "y": 420,
         "wires": [
             [
                 "dfe6c5b8.f2ae6"
@@ -687,7 +380,7 @@
         "filename": "lops_email_file",
         "filenameType": "flow",
         "x": 250,
-        "y": 660,
+        "y": 620,
         "wires": [
             [
                 "620f8c7e.2bd24c"
@@ -708,8 +401,8 @@
         "destFilename": "lops_email_file",
         "destFilenameType": "msg",
         "link": false,
-        "x": 520,
-        "y": 460,
+        "x": 640,
+        "y": 420,
         "wires": [
             [
                 "e4aa1aaf.f70f6"
@@ -725,7 +418,7 @@
         "console": "true",
         "complete": "payload",
         "x": 640,
-        "y": 660,
+        "y": 620,
         "wires": []
     },
     {
@@ -740,118 +433,12 @@
         "template": "deleted: {{flow.lops_email_file}}",
         "output": "str",
         "x": 440,
-        "y": 660,
+        "y": 620,
         "wires": [
             [
                 "6ccf43eb.5fe13c"
             ]
         ]
-    },
-    {
-        "id": "548b1ceb.c7f7cc",
-        "type": "inject",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 160,
-        "y": 520,
-        "wires": [
-            [
-                "7cfe98d2.36654"
-            ]
-        ]
-    },
-    {
-        "id": "6c7d676e.974828",
-        "type": "debug",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "lops_key",
-        "x": 520,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "7cfe98d2.36654",
-        "type": "function",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "func": "// eine Zahl mit führenden Nullen liefern\n//    x = eine Zahl\n//    l = Länge mit Nullen\nvar f = function(x, l) {\n    var str = \"0000\" + x;\n    var idx = str.length - l;\n    return str.substr(idx, l);\n};\n\nvar d = new Date();\nvar k = f(d.getFullYear(), 2) + \"\" + f((d.getMonth()+1), 2) + \"\" + f(d.getDate(), 2);\nk += \"_\" + f(d.getHours(), 2) + \"\" + f(d.getMinutes(), 2) + \"\" + f(d.getSeconds(), 2);\nk += \"_\" + f(d.getMilliseconds(), 3);\n\nmsg.lops_key = k;\n\nnode.status({fill:\"blue\",shape:\"dot\",text:msg.lops_key});\n\nreturn msg;",
-        "outputs": "1",
-        "noerr": 0,
-        "x": 330,
-        "y": 520,
-        "wires": [
-            [
-                "6c7d676e.974828"
-            ]
-        ]
-    },
-    {
-        "id": "1a88a322.7a6e3d",
-        "type": "inject",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 160,
-        "y": 580,
-        "wires": [
-            [
-                "204c17cf.31fae"
-            ]
-        ]
-    },
-    {
-        "id": "204c17cf.31fae",
-        "type": "change",
-        "z": "ff5f17e8.cbcbf8",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "Hallo SMTP im Docker!",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 360,
-        "y": 580,
-        "wires": [
-            [
-                "f78545d4.5f54c8"
-            ]
-        ]
-    },
-    {
-        "id": "f78545d4.5f54c8",
-        "type": "e-mail",
-        "z": "ff5f17e8.cbcbf8",
-        "server": "192.168.51.104",
-        "port": "25",
-        "secure": false,
-        "name": "maik@btmx.net",
-        "dname": "",
-        "x": 560,
-        "y": 580,
-        "wires": []
     },
     {
         "id": "14add112.53448f",
@@ -970,5 +557,71 @@
         "x": 110,
         "y": 40,
         "wires": []
+    },
+    {
+        "id": "f5235bc7.3cc5a",
+        "type": "http in",
+        "z": "80962245.14abd8",
+        "name": "",
+        "url": "/files",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 480,
+        "y": 780,
+        "wires": [
+            [
+                "c2f0e49b.e56538"
+            ]
+        ]
+    },
+    {
+        "id": "b6fa1eb4.4ef0f",
+        "type": "template",
+        "z": "80962245.14abd8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the payload: {{files}} !",
+        "output": "str",
+        "x": 800,
+        "y": 780,
+        "wires": [
+            [
+                "172d57dd.5b39a"
+            ]
+        ]
+    },
+    {
+        "id": "172d57dd.5b39a",
+        "type": "http response",
+        "z": "80962245.14abd8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 960,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "c2f0e49b.e56538",
+        "type": "fs-ops-dir",
+        "z": "80962245.14abd8",
+        "name": "",
+        "path": "/tmp",
+        "pathType": "str",
+        "filter": "lops*",
+        "filterType": "str",
+        "dir": "files",
+        "dirType": "msg",
+        "x": 650,
+        "y": 780,
+        "wires": [
+            [
+                "b6fa1eb4.4ef0f"
+            ]
+        ]
     }
 ]
