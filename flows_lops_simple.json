@@ -1,0 +1,439 @@
+[
+    {
+        "id": "dd3277a3.79e778",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f7a08c10.a795f",
+        "type": "http in",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "url": "/lops",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 200,
+        "wires": [
+            [
+                "978d60ce.500d2"
+            ]
+        ]
+    },
+    {
+        "id": "4bfe706b.0a6cd8",
+        "type": "http response",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1190,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "4ca31faf.724af",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Formular",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head>\n        <title>LOPS</title>\n        <style>\n            body, input {\n                font-family: Verdana, Arial, Helvetica, sans-serif;\n                font-size: 3rem;\n            }\n            body {\n                color: DarkSlateGray;\n                background-color: {{ payload.lopsColor }};\n                height: 100%;\n                display: flex;\n                justify-content: center;\n                align-items: center;\n            }\n            th, td {\n                font-size: 3rem;\n                padding: 1rem;\n                text-align: left;\n            }\n            .lops-content {\n                margin: 0 auto;\n            }\n            .lops-error {\n                background-color: #fb8072;\n            }\n        </style>\n        <script type=\"text/javascript\">\n            function focusOnInput() {\n                document.getElementById(\"inputData\").focus();\n            }\n        </script>\n    </head>\n    <body onload=\"focusOnInput()\"  onclick=\"focusOnInput()\">\n        <div class=\"lops-content\">\n            <h1>LOPS</h1>\n            <table>\n                <tr>\n                    <th>Vorgang:</th>\n                    <td>{{ payload.lopsIdent }}</td>\n                </tr>\n                <tr>\n                    <th>Schrank:</th>\n                    <td>{{ payload.lopsGroup }}</td>\n                </tr>\n            </table>\n            <br/>\n            <form action=\"/lops\" method=\"post\">\n                <label for=\"inputData\">Eingabe:</label>\n                <input type=\"text\" name=\"inputData\" id=\"inputData\" />\n                <input type=\"submit\" value=\"senden\" />\n                <input type=\"hidden\" name=\"lopsIdent\" value=\"{{ payload.lopsIdent }}\" />\n                <input type=\"hidden\" name=\"lopsGroup\" value=\"{{ payload.lopsGroup }}\" />\n                <input type=\"hidden\" name=\"lopsItem\" value=\"{{ payload.lopsItem }}\"/>\n            </form>\n            <p>{{ infoMessage }}</p>\n        </div>\n    </body>\n</html>",
+        "output": "str",
+        "x": 1020,
+        "y": 200,
+        "wires": [
+            [
+                "4bfe706b.0a6cd8"
+            ]
+        ]
+    },
+    {
+        "id": "cb3eff4d.1d449",
+        "type": "http in",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "url": "/lops",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 440,
+        "wires": [
+            [
+                "789be47e.bafdcc"
+            ]
+        ]
+    },
+    {
+        "id": "8378ea2c.cbbee8",
+        "type": "file",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "filename": "/tmp/lops/demo.txt",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 750,
+        "y": 560,
+        "wires": [
+            [
+                "3ba747e.e69ba38"
+            ]
+        ]
+    },
+    {
+        "id": "e219ce7.df2f7b",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Befehlsinfo",
+        "field": "infoMessage",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Info {{ payload.inputData }} wurden erfolgreich verarbeitet!",
+        "output": "str",
+        "x": 1150,
+        "y": 420,
+        "wires": [
+            [
+                "cc9ed7db.ff4a6"
+            ]
+        ]
+    },
+    {
+        "id": "789be47e.bafdcc",
+        "type": "switch",
+        "z": "dd3277a3.79e778",
+        "name": "Befehlsinterpreter",
+        "property": "payload.inputData",
+        "propertyType": "jsonata",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "S\\#[0-9]+",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "regex",
+                "v": "K\\#[0-9]+",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "eq",
+                "v": "Abbruch",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Fertig",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 470,
+        "y": 440,
+        "wires": [
+            [
+                "b58b9f80.36767"
+            ],
+            [
+                "b8951688.b796f8"
+            ],
+            [
+                "5402877.484d0f8"
+            ],
+            [
+                "8378ea2c.cbbee8"
+            ],
+            [
+                "2679ab03.1d72ac"
+            ]
+        ]
+    },
+    {
+        "id": "2679ab03.1d72ac",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Fehlermeldung",
+        "field": "infoMessage",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Fehler! Eingabe {{ payload.inputData }} nicht erkannt!",
+        "output": "str",
+        "x": 740,
+        "y": 620,
+        "wires": [
+            [
+                "4ca31faf.724af"
+            ]
+        ]
+    },
+    {
+        "id": "b8951688.b796f8",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.lopsItem",
+                "pt": "msg",
+                "to": "payload.inputData",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 440,
+        "wires": [
+            [
+                "e219ce7.df2f7b"
+            ]
+        ]
+    },
+    {
+        "id": "b58b9f80.36767",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.lopsGroup",
+                "pt": "msg",
+                "to": "payload.inputData",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 400,
+        "wires": [
+            [
+                "e219ce7.df2f7b"
+            ]
+        ]
+    },
+    {
+        "id": "5402877.484d0f8",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload.lopsGroup",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.lopsItem",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 500,
+        "wires": [
+            [
+                "7309cc12.dc9794"
+            ]
+        ]
+    },
+    {
+        "id": "7309cc12.dc9794",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Abbruchmeldung",
+        "field": "infoMessage",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Verarbeitung wurden abgebrochen.",
+        "output": "str",
+        "x": 1130,
+        "y": 500,
+        "wires": [
+            [
+                "82cc40ab.741f18"
+            ]
+        ]
+    },
+    {
+        "id": "570daa65.f4f81c",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Speicherinfo",
+        "field": "infoMessage",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Auftrag wurden gespeichert.",
+        "output": "str",
+        "x": 1150,
+        "y": 560,
+        "wires": [
+            [
+                "978d60ce.500d2"
+            ]
+        ]
+    },
+    {
+        "id": "978d60ce.500d2",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.lopsIdent",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "82cc40ab.741f18"
+            ]
+        ]
+    },
+    {
+        "id": "a1bc300.fc93d5",
+        "type": "comment",
+        "z": "dd3277a3.79e778",
+        "name": "Vorgang initiieren",
+        "info": " - Timestamp generieren (lopsIdent)",
+        "x": 200,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ff6890ba.999408",
+        "type": "comment",
+        "z": "dd3277a3.79e778",
+        "name": "Vorgang bearbeiten",
+        "info": "",
+        "x": 210,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "82cc40ab.741f18",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "Grün",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.lopsColor",
+                "pt": "msg",
+                "to": "#ccebc5",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 200,
+        "wires": [
+            [
+                "4ca31faf.724af"
+            ]
+        ]
+    },
+    {
+        "id": "cc9ed7db.ff4a6",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "Gelb",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.lopsColor",
+                "pt": "msg",
+                "to": "#ffed6f",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 240,
+        "wires": [
+            [
+                "4ca31faf.724af"
+            ]
+        ]
+    },
+    {
+        "id": "3ba747e.e69ba38",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload.lopsGroup",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.lopsItem",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 560,
+        "wires": [
+            [
+                "570daa65.f4f81c"
+            ]
+        ]
+    }
+]
