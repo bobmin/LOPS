@@ -1,0 +1,64 @@
+# LOPS 6928
+
+Anmeldung per "pi"
+
+## Node-Red
+
+Link zum Terminal anlegen
+
+```
+sudo ln -s /usr/bin/lxterminal /usr/bin/xterm
+```
+
+autom. Start vom Node-Red einrichten
+
+```
+sudo systemctl enable nodered.service
+sudo systemctl status nodered.service
+```
+
+das Protokoll öffnen
+
+```
+node-red-log
+```
+
+die Programmieroberfläche mit `http://localhost:1880` öffnen
+
+per Scanner erfasst Befehle werden direkt oder per https://regex101.com[Regex] interpretiert
+
+gelesen wird vom aktuellen Scanner https://barcode.tec-it.com/de/Code128?data=Demo[Code128]
+
+die Bilder vom https://barcode.tec-it.com/de/Code128?data=Demo[Online-Dienst] werden gut verarbeitet (https://www.zoll.de/SharedDocs/Downloads/DE/Links-fuer-Inhaltseiten/Fachthemen/Zoelle/Atlas/code_128.html[die Schrift] ist weniger gut geeignet)
+
+## Kiosk-Modus
+
+mit `sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart` den Start einrichten
+
+```
+@xset s off
+@xset -dpms
+@xset s noblank
+@chromium-browser --kiosk http://localhost:1880/lops  # load chromium after boot and open the website in full screen mode
+```
+
+mit `[Strg]+[Alt]+[F2]` und `[Strg]+[Alt]+[F7]` zwischen Anzeigen wechseln
+
+## E-Mail senden
+
+nötige Software installieren
+
+```
+sudo apt-get install ssmtp
+sudo apt-get install mailutils
+```
+
+die Konfiguration mit `sudo nano /etc/ssmtp/ssmtp.conf` öffnen und die Zeile `mailhub=x.x.x.x` anpassen
+
+weitere Infos unter https://raspberry-projects.com/pi/software_utilities/email/ssmtp-to-send-emails[ssmtp to send emails]
+
+der Nachrichtentext kann mit `nano /home/pi/Lops/send_email.txt` bearbeitet werden
+
+Betreff und Empfänger werden über `nano /home/pi/Lops/send_email.sh` eingestellt
+
+der Intervall zum Skriptstart ist bei `crontab -e` hinterlegt

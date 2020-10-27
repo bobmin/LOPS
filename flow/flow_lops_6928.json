@@ -1,0 +1,654 @@
+[
+    {
+        "id": "dd3277a3.79e778",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f7a08c10.a795f",
+        "type": "http in",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "url": "/lops",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "978d60ce.500d2"
+            ]
+        ]
+    },
+    {
+        "id": "4bfe706b.0a6cd8",
+        "type": "http response",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1930,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4ca31faf.724af",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Formular",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head>\n        <title>LOPS</title>\n        <style>\n            body, input {\n                font-family: Verdana, Arial, Helvetica, sans-serif;\n                font-size: 3rem;\n            }\n            body {\n                color: DarkSlateGray;\n                background-color: {{ lopsColor }};\n                height: 100%;\n                display: flex;\n                justify-content: center;\n                align-items: center;\n            }\n            table {\n                margin: auto;\n            }\n            th, td {\n                font-size: 3rem;\n                padding: 1rem;\n                text-align: left;\n            }\n            th {\n                text-align: right;\n            }\n            .lops-content {\n                margin: 0 auto;\n                text-align: center;\n            }\n            .lops-error {\n                background-color: #fb8072;\n            }\n        </style>\n        <script type=\"text/javascript\">\n            function focusOnInput() {\n                document.getElementById(\"inputData\").focus();\n            }\n        </script>\n    </head>\n    <body onload=\"focusOnInput()\"  onclick=\"focusOnInput()\">\n        <div class=\"lops-content\">\n            <h1>LOPS {{ lopsAddress }}</h1>\n            <table>\n                <tr>\n                    <th>Vorgang:</th>\n                    <td>{{ lopsIdent }}</td>\n                </tr>\n                <tr>\n                    <th>Entnahme:</th>\n                    <td>{{ lopsGroup }}</td>\n                </tr>\n            </table>\n            <br/>\n            <form action=\"/lops\" method=\"post\">\n                <label for=\"inputData\">Eingabe:</label>\n                <input type=\"text\" name=\"inputData\" id=\"inputData\" />\n                <input type=\"submit\" value=\"senden\" />\n                <input type=\"hidden\" name=\"lopsIdent\" value=\"{{ lopsIdent }}\" />\n                <input type=\"hidden\" name=\"lopsGroup\" value=\"{{ lopsGroup }}\" />\n            </form>\n            <p>{{ infoMessage }}</p>\n        </div>\n    </body>\n</html>",
+        "output": "str",
+        "x": 1580,
+        "y": 160,
+        "wires": [
+            [
+                "778c4a33.453164"
+            ]
+        ]
+    },
+    {
+        "id": "cb3eff4d.1d449",
+        "type": "http in",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "url": "/lops",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 520,
+        "wires": [
+            [
+                "ed89d18.5eb1eb",
+                "b68180de.345218"
+            ]
+        ]
+    },
+    {
+        "id": "e219ce7.df2f7b",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Befehlsinfo",
+        "field": "infoMessage",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{ payload.inputData }} wurden verarbeitet!",
+        "output": "str",
+        "x": 1210,
+        "y": 600,
+        "wires": [
+            [
+                "cc9ed7db.ff4a6"
+            ]
+        ]
+    },
+    {
+        "id": "789be47e.bafdcc",
+        "type": "switch",
+        "z": "dd3277a3.79e778",
+        "name": "Befehlsinterpreter",
+        "property": "payload.inputData",
+        "propertyType": "jsonata",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Abbruch",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Fertig",
+                "vt": "str"
+            },
+            {
+                "t": "regex",
+                "v": "[Ss]chrank [0-9]+",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "regex",
+                "v": "[A-Za-z0-9]+[\\-ß][Mm][0-9]+[\\-ß][Kk][0-9]+",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 670,
+        "y": 520,
+        "wires": [
+            [
+                "5402877.484d0f8"
+            ],
+            [
+                "3ba747e.e69ba38"
+            ],
+            [
+                "b58b9f80.36767"
+            ],
+            [
+                "b8951688.b796f8"
+            ],
+            [
+                "2679ab03.1d72ac"
+            ]
+        ]
+    },
+    {
+        "id": "2679ab03.1d72ac",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Fehlermeldung",
+        "field": "infoMessage",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Fehler! Eingabe {{ payload.inputData }} nicht erkannt!",
+        "output": "str",
+        "x": 1000,
+        "y": 820,
+        "wires": [
+            [
+                "4ca31faf.724af"
+            ]
+        ]
+    },
+    {
+        "id": "b8951688.b796f8",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "lopsItem",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lopsItem",
+                "pt": "msg",
+                "to": "payload.inputData",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 980,
+        "y": 660,
+        "wires": [
+            [
+                "e219ce7.df2f7b"
+            ]
+        ]
+    },
+    {
+        "id": "b58b9f80.36767",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "lopsGroup",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lopsGroup",
+                "pt": "msg",
+                "to": "payload.inputData",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 990,
+        "y": 600,
+        "wires": [
+            [
+                "e219ce7.df2f7b"
+            ]
+        ]
+    },
+    {
+        "id": "5402877.484d0f8",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload.lopsGroup",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.lopsItem",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 380,
+        "wires": [
+            [
+                "7309cc12.dc9794"
+            ]
+        ]
+    },
+    {
+        "id": "7309cc12.dc9794",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Abbruchmeldung",
+        "field": "infoMessage",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Verarbeitung wurden abgebrochen.",
+        "output": "str",
+        "x": 1190,
+        "y": 380,
+        "wires": [
+            [
+                "702b8874.5e3bc"
+            ]
+        ]
+    },
+    {
+        "id": "570daa65.f4f81c",
+        "type": "template",
+        "z": "dd3277a3.79e778",
+        "name": "Speicherinfo",
+        "field": "infoMessage",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Auftrag wurden gespeichert.",
+        "output": "str",
+        "x": 1170,
+        "y": 440,
+        "wires": [
+            [
+                "702b8874.5e3bc"
+            ]
+        ]
+    },
+    {
+        "id": "978d60ce.500d2",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "lopsIdent",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lopsIdent",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 160,
+        "wires": [
+            [
+                "82cc40ab.741f18"
+            ]
+        ]
+    },
+    {
+        "id": "a1bc300.fc93d5",
+        "type": "comment",
+        "z": "dd3277a3.79e778",
+        "name": "Vorgang initiieren",
+        "info": " - Timestamp generieren (lopsIdent)",
+        "x": 200,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ff6890ba.999408",
+        "type": "comment",
+        "z": "dd3277a3.79e778",
+        "name": "Vorgang bearbeiten",
+        "info": "",
+        "x": 210,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "82cc40ab.741f18",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "Grün",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lopsColor",
+                "pt": "msg",
+                "to": "#ccebc5",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 160,
+        "wires": [
+            [
+                "f934ee74.334828"
+            ]
+        ]
+    },
+    {
+        "id": "cc9ed7db.ff4a6",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "Gelb",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lopsColor",
+                "pt": "msg",
+                "to": "#ffed6f",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1370,
+        "y": 600,
+        "wires": [
+            [
+                "ec4d3568.a79a7"
+            ]
+        ]
+    },
+    {
+        "id": "3ba747e.e69ba38",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload.lopsGroup",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.lopsItem",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 440,
+        "wires": [
+            [
+                "570daa65.f4f81c"
+            ]
+        ]
+    },
+    {
+        "id": "3485ce26.e14b52",
+        "type": "file",
+        "z": "dd3277a3.79e778",
+        "name": "Datei schreiben",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1800,
+        "y": 400,
+        "wires": [
+            [
+                "978d60ce.500d2"
+            ]
+        ]
+    },
+    {
+        "id": "de667f27.2343f",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "lopsAddress",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.internalIPv4",
+                "pt": "msg",
+                "to": "lopsAddress",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1290,
+        "y": 160,
+        "wires": [
+            [
+                "4ca31faf.724af"
+            ]
+        ]
+    },
+    {
+        "id": "f934ee74.334828",
+        "type": "ip",
+        "z": "dd3277a3.79e778",
+        "name": "ip",
+        "https": false,
+        "timeout": "5000",
+        "internalIPv4": true,
+        "internalIPv6": true,
+        "publicIPv4": true,
+        "publicIPv6": false,
+        "x": 1150,
+        "y": 160,
+        "wires": [
+            [
+                "de667f27.2343f"
+            ]
+        ]
+    },
+    {
+        "id": "ed89d18.5eb1eb",
+        "type": "debug",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 370,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "b68180de.345218",
+        "type": "change",
+        "z": "dd3277a3.79e778",
+        "name": "payload lesen",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.lopsIdent",
+                "pt": "msg",
+                "to": "lopsIdent",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.lopsGroup",
+                "pt": "msg",
+                "to": "lopsGroup",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 520,
+        "wires": [
+            [
+                "789be47e.bafdcc"
+            ]
+        ]
+    },
+    {
+        "id": "70ed3cd9.09f08c",
+        "type": "catch",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 1480,
+        "y": 880,
+        "wires": [
+            [
+                "98f3ccb2.91956"
+            ]
+        ]
+    },
+    {
+        "id": "98f3ccb2.91956",
+        "type": "debug",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1680,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "702b8874.5e3bc",
+        "type": "function",
+        "z": "dd3277a3.79e778",
+        "name": "Dateiname ableiten",
+        "func": "msg.filename = \"/home/pi/Lops/output/\" + msg.lopsIdent + \".txt\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1570,
+        "y": 400,
+        "wires": [
+            [
+                "3485ce26.e14b52"
+            ]
+        ]
+    },
+    {
+        "id": "74098cfa.f830f4",
+        "type": "status",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "scope": [
+            "3485ce26.e14b52"
+        ],
+        "x": 1480,
+        "y": 960,
+        "wires": [
+            [
+                "98f3ccb2.91956"
+            ]
+        ]
+    },
+    {
+        "id": "778c4a33.453164",
+        "type": "delay",
+        "z": "dd3277a3.79e778",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "250",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1760,
+        "y": 160,
+        "wires": [
+            [
+                "4bfe706b.0a6cd8"
+            ]
+        ]
+    },
+    {
+        "id": "9bb1dfeb.1a8938",
+        "type": "file",
+        "z": "dd3277a3.79e778",
+        "name": "Datei schreiben",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1800,
+        "y": 600,
+        "wires": [
+            [
+                "f934ee74.334828"
+            ]
+        ]
+    },
+    {
+        "id": "ec4d3568.a79a7",
+        "type": "function",
+        "z": "dd3277a3.79e778",
+        "name": "Dateiname ableiten",
+        "func": "msg.filename = \"/home/pi/Lops/output/\" + msg.lopsIdent + \".txt\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1570,
+        "y": 600,
+        "wires": [
+            [
+                "9bb1dfeb.1a8938"
+            ]
+        ]
+    }
+]
