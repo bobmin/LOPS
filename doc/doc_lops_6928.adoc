@@ -25,7 +25,7 @@ node-red-log
 
 die Programmieroberfläche mit `http://localhost:1880` öffnen
 
-per Scanner erfasst Befehle werden direkt oder per https://regex101.com[Regex] interpretiert
+per Scanner (z.B. https://www.inateck.com/inateck-bcst-20-2-4g-wireless-laser-barcode-scanner-bluetooth.html[BCST-20 von Inateck]) erfasst Befehle werden direkt oder per https://regex101.com[Regex] interpretiert
 
 gelesen wird vom aktuellen Scanner https://barcode.tec-it.com/de/Code128?data=Demo[Code128]
 
